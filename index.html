@@ -4,34 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MARUHAN</title>
-  <link rel="stylesheet" href="style.css">
   <style>
     body {
       margin: 0;
       font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
       background-color: #000;
       color: #ffffff;
+      scroll-behavior: smooth;
     }
     .splash {
       width: 100vw;
       height: 100vh;
-      background-image: url('https://tse2.mm.bing.net/th?id=OIP.MRKjGB1qkC-POoQ8zyllRQHaKp&pid=Api');
-      background-size: cover;
-      background-position: center;
+      background-color: #cc3300;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       position: relative;
+      flex-direction: column;
     }
     .splash .overlay-text {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
       color: #ffffff;
-      font-size: 2.5rem;
-      background: none;
-      padding: 1rem 2rem;
+      font-size: 3.25rem;
+      font-weight: bold;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-      border-radius: 8px;
       text-align: center;
+      margin-top: 2rem;
     }
     .nav-buttons {
       position: absolute;
@@ -39,62 +36,97 @@
       right: 30px;
       display: flex;
       gap: 1rem;
-      z-index: 10;
     }
     .nav-buttons a {
       color: #ffffff;
       text-decoration: none;
       font-weight: bold;
-      background: rgba(0, 0, 0, 0.4);
+      background: none;
       padding: 0.5rem 1rem;
       border-radius: 5px;
-      transition: background 0.3s;
+      transition: opacity 0.3s;
     }
     .nav-buttons a:hover {
-      background: rgba(255, 255, 255, 0.2);
+      opacity: 0.7;
     }
     section.content {
       padding: 4rem 2rem;
-      background: none;
+      background-color: #111;
       color: #ffffff;
     }
     section.content h2 {
-      margin-top: 0;
       font-size: 1.8rem;
+      margin-top: 0;
     }
-    ul {
-      padding-left: 1.2rem;
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
     }
-    .portfolio-images {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-top: 1.5rem;
+    .portfolio-item {
+      background-color: #222;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
     }
-    .portfolio-images img {
+    .portfolio-item img {
       width: 100%;
-      max-width: 300px;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+    }
+    .portfolio-item h3 {
+      margin: 0.5rem 0 0.2rem;
+      font-size: 1.1rem;
+      color: #ffcc99;
+    }
+    .portfolio-item p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+    .portfolio-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .portfolio-modal.active {
+      display: flex;
+    }
+    .portfolio-modal .slider {
+      max-width: 90vw;
+      max-height: 80vh;
+      position: relative;
+    }
+    .portfolio-modal img {
+      width: 100%;
+      height: auto;
+      max-height: 80vh;
+      border: 4px solid white;
       border-radius: 8px;
     }
-    @media (max-width: 768px) {
-      .splash .overlay-text {
-        font-size: 1.5rem;
-        padding: 0.8rem 1.2rem;
-      }
-      .nav-buttons {
-        flex-direction: column;
-        top: 10px;
-        right: 10px;
-      }
-      .nav-buttons a {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.9rem;
-      }
-      .portfolio-images {
-        flex-direction: column;
-        align-items: center;
-      }
+    .slider-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2rem;
+      color: white;
+      cursor: pointer;
+      padding: 0 1rem;
+      user-select: none;
     }
+    .slider-nav.left { left: 0; }
+    .slider-nav.right { right: 0; }
   </style>
 </head>
 <body>
@@ -110,32 +142,98 @@
 
   <section id="about" class="content">
     <h2>회사소개</h2>
-    <p>마루한은 중소형 빌딩과 중소규모 상가, 다가구 다세대 건물을 종합관리하는 전문 기업입니다. 임대관리, 유지보수, 인테리어 설계와 시공까지 고객의 자산 가치를 극대화하는 데 기여합니다.</p>
+    <p>마루한은 부동산 자산의 효율적 운영을 위한 종합 서비스를 제공합니다.</p>
   </section>
 
   <section id="business" class="content">
     <h2>사업분야</h2>
-    <ul>
-      <li><strong>건물종합관리</strong> – 청소, 보안, 설비 점검 등 운영 대행</li>
-      <li><strong>임대차관리</strong> – 공실 마케팅, 계약 및 임차인 응대</li>
-      <li><strong>인테리어 설계·시공</strong> – 주거, 상가 및 사무공간 맞춤 설계 시공</li>
-    </ul>
+    <p>건물관리, 임대차 관리, 인테리어 설계 및 시공 등 종합관리 서비스를 제공합니다.</p>
   </section>
 
   <section id="portfolio" class="content">
     <h2>포트폴리오</h2>
-    <p>마루한이 진행한 주요 프로젝트를 소개합니다.</p>
-    <div class="portfolio-images">
-      <img src="https://source.unsplash.com/300x200/?building,office" alt="사무실 인테리어">
-      <img src="https://source.unsplash.com/300x200/?apartment,exterior" alt="주거 건물 외관">
-      <img src="https://source.unsplash.com/300x200/?interior,design" alt="인테리어 설계">
+    <div class="portfolio-grid">
+      <div class="portfolio-item" onclick="openSlider(0)">
+        <img src="https://source.unsplash.com/400x300/?residential,apartment" alt="주거시설">
+        <h3>서울역 더리브아파트</h3>
+        <p>2022년 / 서울시 중구</p>
+      </div>
+      <div class="portfolio-item" onclick="openSlider(1)">
+        <img src="https://source.unsplash.com/400x300/?commercial,store" alt="상업시설">
+        <h3>강남 스퀘어몰</h3>
+        <p>2023년 / 서울시 강남구</p>
+      </div>
+      <div class="portfolio-item" onclick="openSlider(2)">
+        <img src="https://source.unsplash.com/400x300/?office,interior" alt="사무시설">
+        <h3>판교 테크오피스</h3>
+        <p>2021년 / 경기도 성남시</p>
+      </div>
+      <div class="portfolio-item" onclick="openSlider(3)">
+        <img src="https://source.unsplash.com/400x300/?building,renovation" alt="건축/리모델링">
+        <h3>부산 코어리모델링</h3>
+        <p>2020년 / 부산 해운대구</p>
+      </div>
     </div>
   </section>
 
   <section id="contact" class="content">
     <h2>문의하기</h2>
     <p>전화: 02-1234-5678<br>이메일: contact@maruhan.co.kr</p>
-    <p>문의사항이 있으시면 언제든지 연락주세요. 성심껏 답변드리겠습니다.</p>
   </section>
+
+  <div class="portfolio-modal" id="modal" onclick="closeModal()">
+    <div class="slider" onclick="event.stopPropagation()">
+      <span class="slider-nav left" onclick="prevSlide(event)">&#10094;</span>
+      <img id="modal-img" src="" alt="상세 이미지">
+      <span class="slider-nav right" onclick="nextSlide(event)">&#10095;</span>
+    </div>
+  </div>
+
+  <script>
+    const imageSets = [
+      [
+        'https://source.unsplash.com/800x600/?residential,apartment',
+        'https://source.unsplash.com/801x600/?residential,room'
+      ],
+      [
+        'https://source.unsplash.com/800x600/?commercial,store',
+        'https://source.unsplash.com/801x600/?commercial,interior'
+      ],
+      [
+        'https://source.unsplash.com/800x600/?office,workspace',
+        'https://source.unsplash.com/801x600/?office,meetingroom'
+      ],
+      [
+        'https://source.unsplash.com/800x600/?renovation,construction',
+        'https://source.unsplash.com/801x600/?building,interior'
+      ]
+    ];
+
+    let currentSet = 0;
+    let currentIndex = 0;
+
+    function openSlider(setIndex) {
+      currentSet = setIndex;
+      currentIndex = 0;
+      document.getElementById('modal-img').src = imageSets[setIndex][0];
+      document.getElementById('modal').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('modal').classList.remove('active');
+    }
+
+    function prevSlide(e) {
+      e.stopPropagation();
+      currentIndex = (currentIndex - 1 + imageSets[currentSet].length) % imageSets[currentSet].length;
+      document.getElementById('modal-img').src = imageSets[currentSet][currentIndex];
+    }
+
+    function nextSlide(e) {
+      e.stopPropagation();
+      currentIndex = (currentIndex + 1) % imageSets[currentSet].length;
+      document.getElementById('modal-img').src = imageSets[currentSet][currentIndex];
+    }
+  </script>
 </body>
 </html>
