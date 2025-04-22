@@ -1,36 +1,141 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>마루한 | 감각적인 인테리어 디자인</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MARUHAN</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+      background-color: #000;
+      color: #ffffff;
+    }
+    .splash {
+      width: 100vw;
+      height: 100vh;
+      background-image: url('https://tse2.mm.bing.net/th?id=OIP.MRKjGB1qkC-POoQ8zyllRQHaKp&pid=Api');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    .splash .overlay-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #ffffff;
+      font-size: 2.5rem;
+      background: none;
+      padding: 1rem 2rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+      border-radius: 8px;
+      text-align: center;
+    }
+    .nav-buttons {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      display: flex;
+      gap: 1rem;
+      z-index: 10;
+    }
+    .nav-buttons a {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: bold;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+    .nav-buttons a:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    section.content {
+      padding: 4rem 2rem;
+      background: none;
+      color: #ffffff;
+    }
+    section.content h2 {
+      margin-top: 0;
+      font-size: 1.8rem;
+    }
+    ul {
+      padding-left: 1.2rem;
+    }
+    .portfolio-images {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .portfolio-images img {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 8px;
+    }
+    @media (max-width: 768px) {
+      .splash .overlay-text {
+        font-size: 1.5rem;
+        padding: 0.8rem 1.2rem;
+      }
+      .nav-buttons {
+        flex-direction: column;
+        top: 10px;
+        right: 10px;
+      }
+      .nav-buttons a {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+      }
+      .portfolio-images {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>MARUHAN</h1>
-    <nav>
-      <a href="#">회사소개</a>
-      <a href="portfolio.html">포트폴리오</a>
-      <a href="blog.html">블로그</a>
-      <a href="#">문의하기</a>
-    </nav>
-  </header>
+  <section class="splash">
+    <div class="nav-buttons">
+      <a href="#about">회사소개</a>
+      <a href="#business">사업분야</a>
+      <a href="#portfolio">포트폴리오</a>
+      <a href="#contact">문의하기</a>
+    </div>
+    <div class="overlay-text">MARUHAN</div>
+  </section>
 
-  <main>
-    <section class="hero">
-      <h2>감각적인 공간, 디테일한 설계</h2>
-      <p>공간을 바꾸면 삶이 달라집니다. 마루한은 그 중심에 있습니다.</p>
-    </section>
+  <section id="about" class="content">
+    <h2>회사소개</h2>
+    <p>마루한은 중소형 빌딩과 중소규모 상가, 다가구 다세대 건물을 종합관리하는 전문 기업입니다. 임대관리, 유지보수, 인테리어 설계와 시공까지 고객의 자산 가치를 극대화하는 데 기여합니다.</p>
+  </section>
 
-    <section class="intro">
-      <h3>마루한은 어떤 회사인가요?</h3>
-      <p>국내외 상업 공간 및 주거 공간의 인테리어 설계·시공을 전문으로 하는 디자인 스튜디오입니다.</p>
-    </section>
-  </main>
+  <section id="business" class="content">
+    <h2>사업분야</h2>
+    <ul>
+      <li><strong>건물종합관리</strong> – 청소, 보안, 설비 점검 등 운영 대행</li>
+      <li><strong>임대차관리</strong> – 공실 마케팅, 계약 및 임차인 응대</li>
+      <li><strong>인테리어 설계·시공</strong> – 주거, 상가 및 사무공간 맞춤 설계 시공</li>
+    </ul>
+  </section>
 
-  <footer>
-    <p>&copy; 2025 Maruhan Interior Design. All rights reserved.</p>
-  </footer>
+  <section id="portfolio" class="content">
+    <h2>포트폴리오</h2>
+    <p>마루한이 진행한 주요 프로젝트를 소개합니다.</p>
+    <div class="portfolio-images">
+      <img src="https://source.unsplash.com/300x200/?building,office" alt="사무실 인테리어">
+      <img src="https://source.unsplash.com/300x200/?apartment,exterior" alt="주거 건물 외관">
+      <img src="https://source.unsplash.com/300x200/?interior,design" alt="인테리어 설계">
+    </div>
+  </section>
+
+  <section id="contact" class="content">
+    <h2>문의하기</h2>
+    <p>전화: 02-1234-5678<br>이메일: contact@maruhan.co.kr</p>
+    <p>문의사항이 있으시면 언제든지 연락주세요. 성심껏 답변드리겠습니다.</p>
+  </section>
 </body>
 </html>
